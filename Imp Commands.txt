@@ -1,0 +1,15 @@
+docker run -p 8080:8080 jboss/keycloak
+
+docker exec 1b16a6a75c2ad86818cab6dba66806f06a4442a2addbb2324b1d661bf2e78d98 /opt/jboss/keycloak/bin/add-user-keycloak.sh -u admin -p admin
+
+docker restart 1b16a6a75c2ad86818cab6dba66806f06a4442a2addbb2324b1d661bf2e78d98
+
+secret 7HOMGwP52hVIOtZc88oXRQKDc1aF8mpO
+
+Client Secret intenet banking api client nPaMeDVqWH4UIjoM6sHAltybcP6O8G3G
+
+all key cloak and user password are admin and user is also admin
+
+Sql server BankAdmin B@nking@2022
+
+

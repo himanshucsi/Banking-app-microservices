@@ -1,0 +1,69 @@
+-- banking_core_service.banking_core_user definition
+
+BEGIN TRANSACTION [Tran1]
+
+CREATE TABLE [banking_core_user]
+(
+    [id]                    [bigint] NOT NULL IDENTITY(1,1),
+    [email]                 [varchar](255) DEFAULT NULL,
+    [first_name]            [varchar](255) DEFAULT NULL,
+    [identification_number] [varchar](255) DEFAULT NULL,
+    [last_name]             [varchar](255) DEFAULT NULL,
+	CONSTRAINT [bcu_id] PRIMARY KEY CLUSTERED
+	(
+		[id] ASC
+	)
+);
+
+-- banking_core_service.banking_core_account definition
+
+CREATE TABLE [banking_core_account]
+(
+    [id]                [bigint] NOT NULL IDENTITY(1,1),
+    [actual_balance]    [decimal](19, 2) DEFAULT NULL,
+    [available_balance] [decimal](19, 2) DEFAULT NULL,
+    [number]            [varchar](255)   DEFAULT NULL,
+    [status]            [varchar](255)   DEFAULT NULL,
+    [type]              [varchar](255)   DEFAULT NULL,
+    [user_id]           [bigint] DEFAULT NULL,
+    CONSTRAINT [bca_id] PRIMARY KEY CLUSTERED
+	(
+		[id] ASC
+	)
+);
+
+ALTER TABLE [banking_core_account] WITH CHECK ADD CONSTRAINT [FKt5uqy9p0v3rp3yhlgvm7ep0ij] FOREIGN KEY([user_id])
+REFERENCES [banking_core_user] ([id]);
+
+-- banking_core_service.banking_core_account definition
+
+CREATE TABLE [banking_core_utility_account]
+(
+    [id]            [bigint] NOT NULL IDENTITY(1,1),
+    [number]        [varchar](255) DEFAULT NULL,
+    [provider_name] [varchar](255) DEFAULT NULL,
+	CONSTRAINT [bcua_id] PRIMARY KEY CLUSTERED
+	(
+		[id] ASC
+	)
+);
+
+CREATE TABLE [banking_core_transaction]
+(
+    [id]               [bigint] NOT NULL IDENTITY(1,1),
+    [amount]           [decimal](19, 2) DEFAULT NULL,
+    [transaction_type] [varchar](30) NOT NULL,
+    [reference_number] [varchar](50) NOT NULL,
+    [transaction_id]   [varchar](50) NOT NULL,
+    [account_id]       [bigint] DEFAULT NULL,
+    CONSTRAINT [bct_id] PRIMARY KEY CLUSTERED
+	(
+		[id] ASC
+	)
+);
+
+ALTER TABLE [banking_core_transaction] WITH CHECK ADD CONSTRAINT [FKk9w2ogq595jbe8r2due7vv3xr] FOREIGN KEY([account_id])
+REFERENCES [banking_core_account] ([id]);
+
+COMMIT TRANSACTION [Tran1]
+GO
